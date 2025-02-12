@@ -640,9 +640,14 @@ class Position(HDFMixin, PositionDimDataMixin, PositionComputedDataMixin, Concat
             metadata=d["metadata"],
         )
 
-    # @staticmethod
-    # def is_fixed_sampling_rate(time):
-    #     dt = np.diff(time)
+    def get_smoothed(self, sigma):
+        dt = 1 / self.sampling_rate
+        smooth = lambda x: gaussian_filter1d(x, sigma=sigma / dt)
+        smoothed_df = self._df.copy()
+        for col in ['x', 'y', 'z', 'lin_pos']:
+            if col in smoothed_df.columns:
+                smoothed_df[col] = smooth(smoothed_df[col].values)
+        return Position(smoothed_df, metadata=self._df.attrs)
 
     def to_dataframe(self):
         return self._df.copy()

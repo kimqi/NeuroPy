@@ -14,7 +14,7 @@ from matplotlib.gridspec import GridSpec
 import pandas as pd
 from scipy.ndimage import gaussian_filter, gaussian_filter1d, interpolation
 from neuropy.core.epoch import Epoch, ensure_dataframe
-from neuropy.core.neurons import Neurons
+from neuropy import core
 from neuropy.core.position import Position
 from neuropy.core.ratemap import Ratemap
 from neuropy.core.flattened_spiketrains import SpikesAccessor # allows placefields to be sliced by neuron ids
