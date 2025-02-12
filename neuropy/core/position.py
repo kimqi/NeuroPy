@@ -644,7 +644,6 @@ class Position(HDFMixin, PositionDimDataMixin, PositionComputedDataMixin, Concat
     # def is_fixed_sampling_rate(time):
     #     dt = np.diff(time)
 
-
     def to_dataframe(self):
         return self._df.copy()
 
