@@ -531,15 +531,15 @@ def plot_ratemap_1D(ratemap: Ratemap, normalize_xbin=False, fignum=None, fig=Non
         neurons_colors_array = np.array([])
     else:
         if (sortby is None):
-            # sort by the location of the placefield's maximum
-            sort_ind = np.argsort(np.argmax(active_maps, axis=1)) # this doesn't account for how we need to sort the inactive neurons (we only get active_maps for the active ones, but we also have extras).
+            # Sort by the location of the placefield's maximum
+            sort_ind = np.argsort(np.argmax(active_maps, axis=1))
         elif isinstance(sortby, (list, np.ndarray)):
             # use the provided sort indicies
             sort_ind = sortby
         else:
             # THIS IS WHERE THE 'id' string comes from, and it's just chance that it sorts them by ID pretty much.
+            #sort_ind = np.arange(n_neurons)
             raise NotImplementedError
-            sort_ind = np.arange(n_neurons)
 
         if debug_print:
             print(f'sort_ind: {sort_ind}.\tnp.shape: {np.shape(sort_ind)}')
@@ -588,8 +588,6 @@ def plot_ratemap_1D(ratemap: Ratemap, normalize_xbin=False, fignum=None, fig=Non
 
         # baselines_collection = ax.hlines(y_baselines, zorder=-1, alpha=0.7, color='#666666')
     
-
-    # for i, neuron_ind in enumerate(sort_ind):
     for i, curr_included_unit_index in enumerate(sorted_included_unit_indicies):
         # `curr_included_unit_index` is either an index into the `included_unit_neuron_IDs` array or None
         ### Three things must be considered for each "row" of the plot: 1. the pfmap curve values, 2. the cell id label displayed to the left of the row, 3. the color which is used for the row.
@@ -599,7 +597,7 @@ def plot_ratemap_1D(ratemap: Ratemap, normalize_xbin=False, fignum=None, fig=Non
             # normal (non-shared mode)
             curr_ratemap_relative_neuron_IDX = curr_included_unit_index
             curr_neuron_ID = ratemap.neuron_ids[curr_ratemap_relative_neuron_IDX]
-            
+
             ## Labeling:
             formatted_max_value_string = None
             if brev_mode.should_show_firing_rate_label:

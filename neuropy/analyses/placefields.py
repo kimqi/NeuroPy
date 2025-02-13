@@ -1432,7 +1432,8 @@ class PfND(HDFMixin, AttrsBasedClassHelperMixin, ContinuousPeakLocationRepresent
 		if (pf.ndim < 2):
 			# Drop any 'y' related columns if it's a 1D version:
 			# print(f"dropping 'y'-related columns in pf._filtered_spikes_df because pf.ndim: {pf.ndim} (< 2).")
-			pf._filtered_spikes_df.drop(columns=['y','y_loaded'], inplace=True)
+			columns_to_drop = [col for col in ['y', 'y_loaded'] if col in pf._filtered_spikes_df.columns]
+			pf._filtered_spikes_df.drop(columns=columns_to_drop, inplace=True)
 
 		pf._filtered_pos_df.dropna(axis=0, how='any', subset=[*pf._position_variable_names], inplace=True) # dropped NaN values
 		
